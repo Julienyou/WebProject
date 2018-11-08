@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <a class="navbar-brand" href="#">CVhub</a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="navbar-collapse collapse" id="navbarColor01" style="">
+                    <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('cvs') }}">CVs </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('jobs') }}">Métiers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('addcv') }}">Créer mon CV</a>
+                    </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                    <!-- <input class="form-control mr-sm-2" placeholder="Search" type="text">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> -->
+                    </form>
+                </div>
+            </nav>
+            
+        {% block body %}
+            {# <!-- {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Erreur : </strong> {{ flashMessage }}
+            </div>
+            {% endfor %} --> #}
+
+            {# <!-- {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-dismissible alert-succes">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Succès : </strong> {{ flashMessage }}
+            </div>
+            {% endfor %} --> #}
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

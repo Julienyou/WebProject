@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Receuil de Cvs{% endblock %}
+
+{% block body %}
+<style>
+    #job { padding: 10px; margin: 10px; width: 50%}
+</style>
+
+    {% for job in jobs %}
+    <div id="job">
+    <a class="btn btn-outline-primary" href="{{ path('cvsjob', {'job_id': job.id }) }}">{{job.job}}</a>
+    </div>
+    {% endfor %}
+
+{% endblock %}

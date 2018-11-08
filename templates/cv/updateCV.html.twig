@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mise à jour CV{% endblock %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+<!-- <style>
+    #formContainer { padding: 10px; margin: 10px; background: rgba(167, 157, 157, 0.596); width: 50%}
+</style> -->
+
+<p>Si votre métier n'est pas présent dans la liste des métiers, veuillez le rajouter: <br></p>
+<a class="btn btn-outline-primary" href="{{ path('addjob') }}">Ajouter un métier</a>
+<div class="form-group">
+    {{ form_start(form) }}
+    {{ form_row(form.lastname) }}
+    {{ form_row(form.firstname) }}
+    {{ form_row(form.motivation) }}
+    {{ form_row(form.skills) }}
+    {{ form_row(form.studies) }}
+    {{ form_row(form.birthday) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.country) }}
+    {{ form_row(form.phone_number) }}
+    {{ form_row(form.job) }}
+    {{ form_row(form.save, {'label' : "Modifier mon cv"}) }}
+    {{ form_end(form) }}
+</div>
+{% endblock %}

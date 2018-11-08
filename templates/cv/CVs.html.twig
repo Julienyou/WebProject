@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Receuil de Cvs{% endblock %}
+
+{% block body %}
+    <style>
+        .btn-outline-danger{color:rgba(255, 73, 1, 0.685);background-color:transparent;background-image:none;border-color:rgb(155, 51, 51);border-color:rgb(155, 51, 51)}
+        .btn-outline-danger:hover{color:#fff;background-color:rgb(155, 51, 51);border-color:rgb(155, 51, 51)}  
+    </style>
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="alert alert-dismissible alert-success">
+            <strong>Succes : </strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-dismissible alert-danger">
+            <strong>Erreur : </strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {% for cv in cvs %}
+    <div class="card text-white bg-primary mb-3" style="max-width: 40rem; margin:5px;">
+        <div class="card-header" style="background-color:rgb(155, 51, 51)"><h5>CV</h5></div>
+        <div class="card-body" style="background-color:rgb(117, 40, 40)">
+        <h4 class="card-title"> {{cv.job.job}} </h4>
+        <p class="card-text">
+        <table style="width:100%">
+            <tr>
+                <td><strong> Nom : </strong> {{cv.lastname}} </td>
+                <td><strong> Prénom : </strong> {{cv.firstname}} </td>
+                <td><strong> Date de naissance : </strong> {{cv.birthday}} </td>
+            </tr>
+            <tr>
+                <td><strong> Pays : </strong> {{cv.country}} </td>
+                <td><strong> Ville: </strong> {{cv.city}} </td>
+            </tr>
+            <tr>
+                <td><strong> Mail : </strong> {{cv.email}} </td>
+                <td><strong> Téléphone : </strong> {{cv.phone_number}} </td>
+            </tr>
+        </table>
+        <br>
+        <table style="width:100%">
+            <tr>
+                <td><strong> Motivation : </strong></td> 
+                <td> {{cv.motivation}} </td>
+            </tr>
+            <tr>
+                <td><strong> Compétences : </strong></td>
+                <td> {{cv.skills}} </td>
+            </tr>
+            <tr>
+                <td><strong> Expériences/Etudes : </strong></td>
+                <td>{{cv.studies}} </td>
+            </tr>
+        </table>
+        </p>
+        <a class="btn btn-outline-danger" style="width:40%" href="{{ path('deletecv', {'id': cv.id }) }}">Supprimer le CV</a>
+        <a class="btn btn-outline-danger" style="width:40%" href="{{ path('updatecv', {'id': cv.id }) }}">Modifier le CV</a>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
