@@ -60,9 +60,7 @@ class CvController extends AbstractController
             ->find($id);        
 
         if (!$cvID) {
-            throw $this->createNotFoundException(
-                'No CV found'
-            );
+            return $this->render('error/noCvFound.html.twig');
         }
 
         $form = $this->createForm(CVType::class, $cvID);
@@ -95,9 +93,7 @@ class CvController extends AbstractController
             ->findAll();        
 
         if (!$cvs) {
-            throw $this->createNotFoundException(
-                'No CV found'
-            );
+            return $this->render('error/noCvFound.html.twig');
         }
 
         return $this->render('cv/CVs.html.twig', ['cvs' => $cvs]);
@@ -113,9 +109,7 @@ class CvController extends AbstractController
             ->findBy(['job' => $job_id]);        
 
         if (!$cvs) {
-            throw $this->createNotFoundException(
-                'No CV found'
-            );
+            return $this->render('error/noCvFound.html.twig');
         }
 
         return $this->render('cv/CVs.html.twig', ['cvs' => $cvs]);

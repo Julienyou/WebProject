@@ -48,9 +48,7 @@ class JobController extends AbstractController
             ->findAll();        
 
         if (!$jobs) {
-            throw $this->createNotFoundException(
-                'No job found'
-            );
+            return $this->render('error/noJobFound.html.twig');
         }
 
         return $this->render('job/jobs.html.twig', ['jobs' => $jobs]);
