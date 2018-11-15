@@ -149,6 +149,9 @@ class ApiCvController extends AbstractController
 
         $response = new JsonResponse();
         $response->setContent($jsonContent);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setStatusCode("200");
         
 
         return $response;

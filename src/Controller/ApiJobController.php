@@ -69,6 +69,10 @@ class ApiJobController extends AbstractController
         $jsonContent = $serializer->serialize($jobs, 'json');
 
         $response = new JsonResponse();
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setStatusCode("200");
+        
         $response->setContent($jsonContent);
         
 

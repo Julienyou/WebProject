@@ -260,24 +260,24 @@ class CV
         return $this;
     }
 
-    public function getPhone_Number(): ?string
+    public function getPhone_number(): ?string
     {
         return $this->phone_number;
     }
 
-    public function setPhone_Number(string $phone_number): self
+    public function setPhone_number(string $phone_number): self
     {
         $this->phone_number = $phone_number;
 
         return $this;
     }
 
-    public function getPhoneNumber(): ?string
+    public function getPhonenumber(): ?string
     {
         return $this->phone_number;
     }
 
-    public function setPhoneNumber(string $phone_number): self
+    public function setPhonenumber(string $phone_number): self
     {
         $this->phone_number = $phone_number;
 
