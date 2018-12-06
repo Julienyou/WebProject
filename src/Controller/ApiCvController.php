@@ -144,6 +144,54 @@ class ApiCvController extends AbstractController
     }
 
     /**
+     * @Route("/api/cv/{id}", name="api_cv", methods={"GET", "OPTIONS"})
+     */
+    public function getCV($id)
+    {   
+        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
+        {
+            $response = new Response();
+            $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->headers->set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type', true);
+
+            return $response;
+        }
+
+        $encoders = array(new JsonEncoder());
+        $normalizers = array(new ObjectNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $cv = $this->getDoctrine()
+            ->getRepository(CV::class)
+            ->find($id);
+
+        if (!$cv) {
+            throw $this->createNotFoundException(
+                'No CV found'
+            );
+        }
+
+        $jsonContent = $serializer->serialize($cv, 'json');
+
+        $response = new JsonResponse();
+        $response->setContent($jsonContent);
+
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Content-Type', 'application/json');
+
+        if (!$cv) {
+            $response->setStatusCode("500");
+            return $response;
+        }
+        else {
+            $response->setStatusCode("200");
+            return $response;
+        }
+    }
+
+    /**
      * @Route("/api/cvs", name="api_cvs", methods={"GET"})
      */
     public function displayAllCvs()
