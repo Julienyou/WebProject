@@ -34,8 +34,10 @@ class ApiCvController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
         {
             $response = new Response();
+            $response->headers->set('Content-Type', 'application/json');
             $response->headers->set('Access-Control-Allow-Origin', '*');
             $response->headers->set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type', true);
 
             return $response;
         }
@@ -45,7 +47,7 @@ class ApiCvController extends AbstractController
 
         $json = $request->getContent();
         $content = json_decode($json, true);
-
+        
         $cv->setMotivation($content["motivation"]);
         $cv->setSkills($content["skills"]);
         $cv->setStudies($content["studies"]);
@@ -64,14 +66,20 @@ class ApiCvController extends AbstractController
         $cv->setPhone_Number($content["phone_Number"]);
         $cv->setPhoneNumber($content["phone_Number"]);
 
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Content-Type', 'application/json');
+
         if (!$cv) {
-            return new Response("Erreur lors de la création du Cv");
+            $response->setStatusCode("500");
+            return $response;
         }
         else {
+            $response->setStatusCode("200");
             $em = $this->getDoctrine()->getManager();
             $em->persist($cv);
             $em->flush();
-            return new Response("Cv crée avec succès");
+            return $response;
         }
     }
 
@@ -83,8 +91,10 @@ class ApiCvController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
         {
             $response = new Response();
+            $response->headers->set('Content-Type', 'application/json');
             $response->headers->set('Access-Control-Allow-Origin', '*');
             $response->headers->set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type', true);
 
             return $response;
         }
@@ -116,14 +126,20 @@ class ApiCvController extends AbstractController
         $cv->setPhone_Number($content["phone_Number"]);
         $cv->setPhoneNumber($content["phone_Number"]);
 
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Content-Type', 'application/json');
+
         if (!$cv) {
-            return new Response("Erreur lors de la création du Cv");
+            $response->setStatusCode("500");
+            return $response;
         }
         else {
+            $response->setStatusCode("200");
             $em = $this->getDoctrine()->getManager();
             $em->persist($cv);
             $em->flush();
-            return new Response("Cv modifié avec succès");
+            return $response;
         }
     }
 
