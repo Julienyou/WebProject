@@ -243,6 +243,9 @@ class ApiCvController extends AbstractController
 
         $response = new JsonResponse();
         $response->setContent($jsonContent);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setStatusCode("200");
         
 
         return $response;
@@ -256,8 +259,10 @@ class ApiCvController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
         {
             $response = new Response();
+            $response->headers->set('Content-Type', 'application/json');
             $response->headers->set('Access-Control-Allow-Origin', '*');
             $response->headers->set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type', true);
 
             return $response;
         }
@@ -266,15 +271,22 @@ class ApiCvController extends AbstractController
 
         $cv = $this->getDoctrine()
             ->getRepository(CV::class)
-            ->find($id);        
+            ->find($id);      
+        
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Content-Type', 'application/json');
 
         if (!$cv) {
-            return new Response("Cv non trouvé");
+            $response->setStatusCode("500");
+            return $response;
         }
+        
+        $response->setStatusCode("200");
 
         $entityManager->remove($cv);
         $entityManager->flush();
 
-        return new Response("Cv supprimé avec succès");
+        return $response;
     }
 }
