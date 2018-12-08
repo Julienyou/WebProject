@@ -23,8 +23,10 @@ class ApiJobController extends AbstractController
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
         {
             $response = new Response();
+            $response->headers->set('Content-Type', 'application/json');
             $response->headers->set('Access-Control-Allow-Origin', '*');
             $response->headers->set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+            $response->headers->set('Access-Control-Allow-Headers', 'Content-Type', true);
 
             return $response;
         }
@@ -36,15 +38,20 @@ class ApiJobController extends AbstractController
 
         $job->setJob($content['job']);
 
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
 
         if (!$job) {
-            return new Response("Erreur lors de la création du métier");
+            $response->setStatusCode("500");
+            return $response;
         }
         else {
             $em = $this->getDoctrine()->getManager();
             $em->persist($job);
             $em->flush();
-            return new Response("Job créé avec succès");
+            $response->setStatusCode("200");
+            return $response;
         }
     }
 
