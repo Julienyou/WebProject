@@ -25,6 +25,7 @@ class CV
      *      minMessage = "Le nombre de caractères admis pour la motivation doit se situer entre 1 et 255 compris",
      *      maxMessage = "Le nombre de caractères admis pour la motivation doit se situer entre 1 et 255 compris"
      * )
+     * @Assert\NotBlank()
      */
     private $motivation;
 
@@ -36,6 +37,7 @@ class CV
      *      minMessage = "Le nombre de caractères admis pour les compétences doit se situer entre 1 et 255 compris",
      *      maxMessage = "Le nombre de caractères admis pour les compétences doit se situer entre 1 et 255 compris"
      * )
+     * @Assert\NotBlank()
      */
     private $skills;
 
@@ -47,6 +49,7 @@ class CV
      *      minMessage = "Le nombre de caractères admis pour les études et l'expérience doit se situer entre 1 et 255 compris",
      *      maxMessage = "Le nombre de caractères admis pour les études et l'expérience doit se situer entre 1 et 255 compris"
      * )
+     * @Assert\NotBlank()
      */
     private $studies;
 
@@ -65,6 +68,7 @@ class CV
      *      minMessage = "Le nombre de caractères admis pour le nom doit se situer entre 2 et 25 compris",
      *      maxMessage = "Le nombre de caractères admis pour le nom doit se situer entre 2 et 25 compris"
      * )
+     * @Assert\NotBlank()
      */
     private $lastname;
 
@@ -76,6 +80,7 @@ class CV
      *      minMessage = "Le nombre de caractères admis pour le prénom doit se situer entre 2 et 25 compris",
      *      maxMessage = "Le nombre de caractères admis pour le prénom doit se situer entre 2 et 25 compris"
      * )
+     * @Assert\NotBlank()
      */
     private $firstname;
 
@@ -86,6 +91,7 @@ class CV
      *      match = true,
      *      message = "Entrer une date suivant ce modèle : jj/mm/aaaa"
      * )
+     * @Assert\NotBlank()
      */
     private $birthday;
 
@@ -100,6 +106,7 @@ class CV
      *      minMessage = "Le nombre de caractères admis pour le mail doit se situer entre 7 et 100 compris",
      *      maxMessage = "Le nombre de caractères admis pour le mail doit se situer entre 7 et 100 compris"
      * )
+     * @Assert\NotBlank()
      */
     private $email;
 
@@ -111,6 +118,7 @@ class CV
      *      minMessage = "Le nombre de caractères admis pour la ville doit se situer entre 1 et 50 compris",
      *      maxMessage = "Le nombre de caractères admis pour la ville doit se situer entre 1 et 50 compris"
      * )
+     * @Assert\NotBlank()
      */
     private $city;
 
@@ -122,6 +130,7 @@ class CV
      *      minMessage = "Le nombre de caractères admis pour le pays doit se situer entre 2 et 30 compris",
      *      maxMessage = "Le nombre de caractères admis pour le pays doit se situer entre 2 et 30 compris"
      * )
+     * @Assert\NotBlank()
      */
     private $country;
 
@@ -132,6 +141,7 @@ class CV
      *      match = true,
      *      message = "Entrer une numéro suivant un de ces modèles : 04xx xxx xxx ou 04xx/xxx/xxx"
      * )
+     * @Assert\NotBlank()
      */
     private $phone_number;
 

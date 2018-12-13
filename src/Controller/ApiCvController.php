@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ApiCvController extends AbstractController
 {
@@ -29,7 +30,7 @@ class ApiCvController extends AbstractController
     /**
      * @Route("/api/addcv", name="api_addcv", methods={"POST", "OPTIONS"})
      */
-    public function addCV(Request $request)
+    public function addCV(Request $request, ValidatorInterface $validator)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
         {
@@ -70,8 +71,27 @@ class ApiCvController extends AbstractController
         $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Content-Type', 'application/json');
 
-        if (!$cv) {
+        //Verifie les asserts mis dans l'entité
+        $errors = $validator->validate($cv);
+        $array = array();
+
+        if (count($errors) > 0) {
+            /*
+            * Uses a __toString method on the $errors variable which is a
+            * ConstraintViolationList object. This gives us a nice string
+            * for debugging.
+            */
+
+	        foreach ($errors as $error) {
+                // On récupère le nom du champ sur lequel a été levé l'erreur
+                $champ = $error->getPropertyPath();
+                
+                // On récupère le message d'erreur
+                $array[$champ] = $error->getMessage();
+            }
             $response->setStatusCode("500");
+            $json = json_encode($array);
+            $response->setContent($json);
             return $response;
         }
         else {
@@ -86,7 +106,7 @@ class ApiCvController extends AbstractController
     /**
      * @Route("/api/updatecv/{id}", name="api_updatecv", methods={"PUT", "OPTIONS"})
      */
-    public function updateCV(Request $request, $id)
+    public function updateCV(Request $request, $id, ValidatorInterface $validator)
     {   
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
         {
@@ -130,8 +150,27 @@ class ApiCvController extends AbstractController
         $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Content-Type', 'application/json');
 
-        if (!$cv) {
+        //Verifie les asserts mis dans l'entité
+        $errors = $validator->validate($cv);
+        $array = array();
+
+        if (count($errors) > 0) {
+            /*
+            * Uses a __toString method on the $errors variable which is a
+            * ConstraintViolationList object. This gives us a nice string
+            * for debugging.
+            */
+
+	        foreach ($errors as $error) {
+                // On récupère le nom du champ sur lequel a été levé l'erreur
+                $champ = $error->getPropertyPath();
+                
+                // On récupère le message d'erreur
+                $array[$champ] = $error->getMessage();
+            }
             $response->setStatusCode("500");
+            $json = json_encode($array);
+            $response->setContent($json);
             return $response;
         }
         else {
