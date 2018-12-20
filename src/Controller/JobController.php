@@ -16,6 +16,7 @@ class JobController extends AbstractController
      */
     public function addJob(Request $request)
     {
+        /* Function to add a job in the database */
         $job = new Job();
 
         $form = $this->createForm(JobType::class, $job);
@@ -25,6 +26,7 @@ class JobController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
         try {
+            /* Add data from the form in the database */
             $em = $this->getDoctrine()->getManager();
             $em->persist($job);
             $em->flush();
@@ -43,6 +45,7 @@ class JobController extends AbstractController
      */
     public function displayAllJobs()
     {
+        /* Function to display all the jobs in the database */
         $jobs = $this->getDoctrine()
             ->getRepository(Job::class)
             ->findAll();        

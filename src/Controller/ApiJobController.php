@@ -20,6 +20,7 @@ class ApiJobController extends AbstractController
      */
     public function addJob(Request $request)
     {
+        /* Function to add a job in the database which is given in a json */
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
         {
             $response = new Response();
@@ -60,6 +61,7 @@ class ApiJobController extends AbstractController
      */
     public function displayAllJobs()
     {
+        /* Function which sends a json with all the jobs  */
         $encoders = array(new JsonEncoder());
         $normalizers = array(new ObjectNormalizer());
         $serializer = new Serializer($normalizers, $encoders);

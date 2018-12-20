@@ -26,6 +26,7 @@ class CvController extends AbstractController
      */
     public function addCV(Request $request)
     {
+        /* Function to add a CV in the database*/
         $cv = new CV();
 
         $form = $this->createForm(CVType::class, $cv);
@@ -35,6 +36,7 @@ class CvController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
         try {
+            /* Add data from the form in the database */
             $em = $this->getDoctrine()->getManager();
             $em->persist($cv);
             $em->flush();
@@ -43,7 +45,6 @@ class CvController extends AbstractController
             $this->addFlash('error', 'Le Cv n\'est pas bien enregistré.');
         }
 
-        //return new Response('Le CV a été crée avec succès!');
         return $this->redirect($this->generateUrl("cvs"));
     }
 
@@ -54,7 +55,9 @@ class CvController extends AbstractController
      * @Route("/updatecv/{id}", name="updatecv")
      */
     public function updateCV(Request $request, $id)
-    {        
+    {
+        /* Function to update a CV which is already in the database */
+        /* Get all the informations of one particular CV */        
         $cvID = $this->getDoctrine()
             ->getRepository(CV::class)
             ->find($id);        
@@ -63,6 +66,7 @@ class CvController extends AbstractController
             return $this->render('error/noCvFound.html.twig');
         }
 
+        /* Create a form with all the informations of the CV in it */
         $form = $this->createForm(CVType::class, $cvID);
         $form->handleRequest($request);
         
@@ -70,6 +74,7 @@ class CvController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
         try {
+            /* Add new data from the form in the database */
             $em = $this->getDoctrine()->getManager();
             $em->persist($cvID);
             $em->flush();
@@ -88,6 +93,7 @@ class CvController extends AbstractController
      */
     public function displayAllCvs()
     {
+        /* Function to display all the CVs in the database */
         $cvs = $this->getDoctrine()
             ->getRepository(CV::class)
             ->findAll();        
@@ -104,6 +110,7 @@ class CvController extends AbstractController
      */
     public function displayCvsJob($job_id)
     {
+        /* Function to display all the CVs for a particular job */
         $cvs = $this->getDoctrine()
             ->getRepository(CV::class)
             ->findBy(['job' => $job_id]);        
@@ -120,6 +127,7 @@ class CvController extends AbstractController
      */
     public function deleteCv($id)
     {
+        /* Function to delete a CV from the database */
         $entityManager = $this->getDoctrine()->getManager();
 
         $cv = $this->getDoctrine()

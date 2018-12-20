@@ -32,6 +32,7 @@ class ApiCvController extends AbstractController
      */
     public function addCV(Request $request, ValidatorInterface $validator)
     {
+        /* Function to add a CV in the database which is given in a json */
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
         {
             $response = new Response();
@@ -49,6 +50,7 @@ class ApiCvController extends AbstractController
         $json = $request->getContent();
         $content = json_decode($json, true);
         
+        /* Fill the entities with the informations in the json */
         $cv->setMotivation($content["motivation"]);
         $cv->setSkills($content["skills"]);
         $cv->setStudies($content["studies"]);
@@ -71,7 +73,7 @@ class ApiCvController extends AbstractController
         $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Content-Type', 'application/json');
 
-        //Verifie les asserts mis dans l'entité
+        //Verify asserts which are in the entities
         $errors = $validator->validate($cv);
         $array = array();
 
@@ -107,7 +109,8 @@ class ApiCvController extends AbstractController
      * @Route("/api/updatecv/{id}", name="api_updatecv", methods={"PUT", "OPTIONS"})
      */
     public function updateCV(Request $request, $id, ValidatorInterface $validator)
-    {   
+    {
+        /* Function to update a CV which is already in the database */   
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
         {
             $response = new Response();
@@ -150,7 +153,7 @@ class ApiCvController extends AbstractController
         $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Content-Type', 'application/json');
 
-        //Verifie les asserts mis dans l'entité
+        //Verify asserts which are in the entities
         $errors = $validator->validate($cv);
         $array = array();
 
@@ -186,7 +189,8 @@ class ApiCvController extends AbstractController
      * @Route("/api/cv/{id}", name="api_cv", methods={"GET", "OPTIONS"})
      */
     public function getCV($id)
-    {   
+    {
+        /* Function to get a CV shaped like a json thanks to the id */   
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
         {
             $response = new Response();
@@ -235,6 +239,7 @@ class ApiCvController extends AbstractController
      */
     public function displayAllCvs()
     {
+        /* Function which sends a json with all the CVs  */
         $encoders = array(new JsonEncoder());
         $normalizers = array(new ObjectNormalizer());
         $serializer = new Serializer($normalizers, $encoders);
@@ -265,6 +270,7 @@ class ApiCvController extends AbstractController
      */
     public function displayCvsJob($job_id)
     {
+        /* Function which sends a json with all the CVs for a particular job */
         $encoders = array(new JsonEncoder());
         $normalizers = array(new ObjectNormalizer());
         $serializer = new Serializer($normalizers, $encoders);
@@ -295,6 +301,7 @@ class ApiCvController extends AbstractController
      */
     public function deleteCv($id)
     {
+        /* Function to delete a CV in the database */
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS')
         {
             $response = new Response();
