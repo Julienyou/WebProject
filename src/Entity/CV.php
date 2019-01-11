@@ -113,10 +113,10 @@ class CV
     /**
      * @ORM\Column(type="string", length=50)
      * @Assert\Length(
-     *      min = 1,
+     *      min = 2,
      *      max = 50,
-     *      minMessage = "Le nombre de caractères admis pour la ville doit se situer entre 1 et 50 compris",
-     *      maxMessage = "Le nombre de caractères admis pour la ville doit se situer entre 1 et 50 compris"
+     *      minMessage = "Le nombre de caractères admis pour la ville doit se situer entre 2 et 50 compris",
+     *      maxMessage = "Le nombre de caractères admis pour la ville doit se situer entre 2 et 50 compris"
      * )
      * @Assert\NotBlank()
      */
